@@ -28,15 +28,14 @@
     var axNota1 = [];
     var axNota2 = [];
     var axNota3 = [];
-    
-    var usuario = {
-         aluno: [   
-            {"nome": "",
-            "nota 1 ": 0,
-            "nota 2": 0,
-            "nota 3": 0}
-        ]
+
+    var alunoCadastrado = {
+        "nome": "",
+        "nota 1": 0,
+        "nota 2": 0,
+        "nota 3": 0
     }
+
     function cadastrar() {
         msgCadastro.innerHTML = '';
         erro.innerHTML = '';
@@ -44,8 +43,6 @@
         var nota1 = Number(ipt_nota1.value);
         var nota2 = Number(ipt_nota2.value);
         var nota3 = Number(ipt_nota3.value);
-
-        
 
         var erros = 0
 
@@ -65,11 +62,19 @@
             }
         }
         if (erros == 0) {
-            usuario.aluno.push({nome: nome, nota1: nota1, nota2: nota2, nota3: nota3})
+            alunoCadastrado.nome = nome;
+            alunoCadastrado.nota1 = nota1;
+            alunoCadastrado.nota2 = nota2;
+            alunoCadastrado.nota3 = nota3;
+
+            axNome.push(alunoCadastrado.nome)
+            axNota1.push(alunoCadastrado.nota1)
+            axNota2.push(alunoCadastrado.nota2)
+            axNota3.push(alunoCadastrado.nota3)
 
             msgCadastro.innerHTML = `Aluno: ${nome} cadastrado com sucesso!`;
         }
-        console.log(usuario);
+        console.log(alunoCadastrado.nome, alunoCadastrado.nota1, alunoCadastrado.nota2, alunoCadastrado.nota3);
     }
     function listar() {
         msgListar.innerHTML = '';
@@ -106,14 +111,14 @@
     function aluno() {
         msgAluno.innerHTML = '';
         erro.innerHTML = '';
-        var nome = ipt_nome.value;
-        var nota1 = Number(ipt_nota1.value);
-        var nota2 = Number(ipt_nota2.value);
-        var nota3 = Number(ipt_nota3.value);
+        var nome = alunoCadastrado.nome;
+        var nota1 = alunoCadastrado.nota1;
+        var nota2 = alunoCadastrado.nota2;
+        var nota3 = alunoCadastrado.nota3;
 
         var erros = 0
 
-        if (axNota1.length == 0 || axNota2.length == 0 || axNota3.length == 0) {
+        if (nota1.length < 0 || nota2.length < 0 || nota3.length < 0) {
             erro.innerHTML = 'Nenhuma nota cadastrada!';
             erros++
         }
