@@ -24,7 +24,8 @@
     <div id="erro"></div>
 </body>
 <script>
-    var alunos = []
+  
+    var alunos = [];
 
     function cadastrar() {
         msgCadastro.innerHTML = '';
@@ -44,8 +45,9 @@
             erro.innerHTML += 'Numérico maior ou igual a zeros e menor que 10';
             erros++;
         }
-        for (let index = 0; index < nome.length; index++) {
-            if (nome == nome[index]) {
+      
+        for (let index = 0; index < alunos.length; index++) {
+            if (nome == alunos[index]) {
                 erro.innerHTML = 'Não é possivel ter duas pessoas com o mesmo nome!';
                 erros++;
                 break;
@@ -57,7 +59,7 @@
                 nota1: nota1,
                 nota2: nota2,
                 nota3: nota3
-            });
+            })
 
             msgCadastro.innerHTML = `Aluno: ${nome} cadastrado com sucesso!`;
         }
@@ -66,11 +68,6 @@
     function listar() {
         msgListar.innerHTML = '';
         erro.innerHTML = '';
-        var nome = ipt_nome.value;
-        var nota1 = Number(ipt_nota1.value);
-        var nota2 = Number(ipt_nota2.value);
-        var nota3 = Number(ipt_nota3.value);
-
         var erros = 0
 
         if (alunos.length == 0) {
@@ -98,6 +95,9 @@
     function aluno() {
         msgAluno.innerHTML = '';
         erro.innerHTML = '';
+        var erros = 0
+
+        if (alunos.length < 0){
         var nome = alunos.nome;
         var nota1 = alunos.nota1;
         var nota2 = alunos.nota2;
@@ -123,6 +123,72 @@
                 }
 
             }
+        }
+    }
+
+    function media() {
+        var prompt_media = prompt("Caso queira consultar a maior média digite: 'maior', e caso queira consultar a menor média digite: 'menor'.");
+        
+        console.log(prompt_media);
+
+        for (prompt_media; prompt_media != "maior" && prompt_media != "menor"; prompt_media) {
+            prompt_media = prompt("Caso queira consultar a maior média digite: 'maior', e caso queira consultar a menor média digite: 'menor'.");
+        } 
+
+        var media_temporaria = 0;
+        var nome_maior = "";
+        var nota1_maior = 0;
+        var nota2_maior = 0;
+        var nota3_maior = 0;
+        var media_maior = 0;
+
+        var nome_menor = "";
+        var nota1_menor = 0;
+        var nota2_menor = 0;
+        var nota3_menor = 0;
+        var media_menor = 0;
+
+        console.log(prompt_media)
+        if (prompt_media == "maior") {
+            for (let contador = 0; contador < alunos.length; contador++) {
+                media_temporaria = (alunos[contador].nota1 + alunos[contador].nota2 + alunos[contador].nota3) / 3;
+
+                if (contador == 0) {
+                    media_maior == media_temporaria;
+                }
+
+                if (media_temporaria > media_maior) {
+                    media_maior = media_temporaria;
+                    nome_maior = alunos[contador].nome;
+                    nota1_maior = alunos[contador].nota1;
+                    nota2_maior = alunos[contador].nota2;
+                    nota3_maior = alunos[contador].nota3;
+                }
+            }
+            console.log("oi")
+
+            msgMedia.innerHTML = `Registro : Nome:${nome_maior}, Nota 1: ${nota1_maior}, Nota 2: ${nota2_maior}, Nota 3: ${nota3_maior}<br> média: ${media_maior}`;
+        }
+
+        if (prompt_media == "menor") {
+            for (let contador = 0; contador < alunos.length; contador++) {
+                media_temporaria = (alunos[contador].nota1 + alunos[contador].nota2 + alunos[contador].nota3) / 3;
+
+                if (contador == 0) {
+                    media_menor = media_temporaria;
+                }
+
+                if (media_temporaria <= media_menor) {
+                    media_menor = media_temporaria;
+                    nome_menor = alunos[contador].nome;
+                    nota1_menor = alunos[contador].nota1;
+                    nota2_menor = alunos[contador].nota2;
+                    nota3_menor = alunos[contador].nota3;
+                }
+            }
+            console.log(nota1_menor)
+
+            msgMedia.innerHTML = `Registro : Nome:${nome_menor}, Nota 1: ${nota1_menor}, Nota 2: ${nota2_menor}, Nota 3: ${nota3_menor}<br> média: ${media_menor}`;
         }
     }
 </script>
