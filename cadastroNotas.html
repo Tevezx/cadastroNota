@@ -24,17 +24,7 @@
     <div id="erro"></div>
 </body>
 <script>
-    var axNome = [];
-    var axNota1 = [];
-    var axNota2 = [];
-    var axNota3 = [];
-
-    var alunoCadastrado = {
-        "nome": "",
-        "nota 1": 0,
-        "nota 2": 0,
-        "nota 3": 0
-    }
+    var alunos = []
 
     function cadastrar() {
         msgCadastro.innerHTML = '';
@@ -54,27 +44,24 @@
             erro.innerHTML += 'Numérico maior ou igual a zeros e menor que 10';
             erros++;
         }
-        for (let index = 0; index < axNome.length; index++) {
-            if (nome == axNome[index]) {
+        for (let index = 0; index < nome.length; index++) {
+            if (nome == nome[index]) {
                 erro.innerHTML = 'Não é possivel ter duas pessoas com o mesmo nome!';
                 erros++;
                 break;
             }
         }
         if (erros == 0) {
-            alunoCadastrado.nome = nome;
-            alunoCadastrado.nota1 = nota1;
-            alunoCadastrado.nota2 = nota2;
-            alunoCadastrado.nota3 = nota3;
-
-            axNome.push(alunoCadastrado.nome)
-            axNota1.push(alunoCadastrado.nota1)
-            axNota2.push(alunoCadastrado.nota2)
-            axNota3.push(alunoCadastrado.nota3)
+            alunos.push({
+                nome: nome,
+                nota1: nota1,
+                nota2: nota2,
+                nota3: nota3
+            });
 
             msgCadastro.innerHTML = `Aluno: ${nome} cadastrado com sucesso!`;
         }
-        console.log(alunoCadastrado.nome, alunoCadastrado.nota1, alunoCadastrado.nota2, alunoCadastrado.nota3);
+        console.log(alunos);
     }
     function listar() {
         msgListar.innerHTML = '';
@@ -86,7 +73,7 @@
 
         var erros = 0
 
-        if (axNome.length == 0) {
+        if (alunos.length == 0) {
             erro.innerHTML = 'Nenhuma nota cadastrada!';
             erros++
         }
@@ -94,16 +81,16 @@
             var pergunta = prompt('1 - Do ultimo ao primeiro <br> 2 - Do primeiro ao ultimo');
             if (pergunta == 1) {
                 msgListar.innerHTML = '';
-                for (let index = axNome.length - 1; index >= 0; index--) {
-                    let media = (axNota1[index] + axNota2[index] + axNota3[index]) / 3;
-                    msgListar.innerHTML += `<br> Aluno: ${axNome[index]} - N1: ${axNota1[index]} - N2: ${axNota2[index]} - N3: ${axNota3[index]} - Média: ${media.toFixed(2)} - Listar`;
+                for (let index = alunos.length - 1; index >= 0; index--) {
+                    let media = (alunos[index].nota1 + alunos[index].nota2 + alunos[index].nota3) / 3;
+                    msgListar.innerHTML += `<br> Aluno: ${alunos[index].nome} - N1: ${alunos[index].nota1} - N2: ${alunos[index].nota2} - N3: ${alunos[index].nota3} - Média: ${media.toFixed(2)} - Listar`;
                 }
             }
             if (pergunta == 2) {
                 msgListar.innerHTML = '';
-                for (let index = 0; index < axNome.length; index++) {
-                    let media = (axNota1[index] + axNota2[index] + axNota3[index]) / 3;
-                    msgListar.innerHTML += `<br> Aluno: ${axNome[index]} - N1: ${axNota1[index]} - N2: ${axNota2[index]} - N3: ${axNota3[index]} - Média: ${media.toFixed(2)} - Listar`;
+                for (let index = 0; index < alunos.length; index++) {
+                    let media = (alunos[index].nota1 + alunos[index].nota2 + alunos[index].nota3) / 3;
+                    msgListar.innerHTML += `<br> Aluno: ${alunos[index].nome} - N1: ${alunos[index].nota1} - N2: ${alunos[index].nota2} - N3: ${alunos[index].nota3} - Média: ${media.toFixed(2)} - Listar`;
                 }
             }
         }
@@ -111,27 +98,27 @@
     function aluno() {
         msgAluno.innerHTML = '';
         erro.innerHTML = '';
-        var nome = alunoCadastrado.nome;
-        var nota1 = alunoCadastrado.nota1;
-        var nota2 = alunoCadastrado.nota2;
-        var nota3 = alunoCadastrado.nota3;
+        var nome = alunos.nome;
+        var nota1 = alunos.nota1;
+        var nota2 = alunos.nota2;
+        var nota3 = alunos.nota3;
 
         var erros = 0
 
-        if (nota1.length < 0 || nota2.length < 0 || nota3.length < 0) {
+        if (alunos.length < 0) {
             erro.innerHTML = 'Nenhuma nota cadastrada!';
             erros++
         }
 
         if (erros == 0) {
             var nomeAluno = prompt('Digite o nome do aluno: ');
-            for (let index = 0; index < axNome.length; index++) {
-                if (axNome.length == 0) {
+            for (let index = 0; index < alunos.length; index++) {
+                if (alunos.length == 0) {
                     erro.innerHTML = 'Não existe alunos cadastrados';
                 } else {
-                    if (nomeAluno == axNome[index]) {
-                        let media = (axNota1[index] + axNota2[index] + axNota3[index]) / 3;
-                        msgAluno.innerHTML = `Aluno: ${axNome[index]} - N1: ${axNota1[index]} - N2: ${axNota2[index]} - N3: ${axNota3[index]} - Média: ${media.toFixed(2)} - Nota Aluno`
+                    if (nomeAluno == alunos[index].nome) {
+                        let media = (alunos[index].nota1 + alunos[index].nota2 + alunos[index].nota3) / 3;
+                        msgAluno.innerHTML = `Aluno: ${alunos[index].nome} - N1: ${alunos[index].nota1} - N2: ${alunos[index].nota2} - N3: ${alunos[index].nota3} - Média: ${media.toFixed(2)} - Nota Aluno`
                     }
                 }
 
