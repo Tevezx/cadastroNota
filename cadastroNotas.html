@@ -24,7 +24,7 @@
     <div id="erro"></div>
 </body>
 <script>
-  
+
     var alunos = [];
 
     function cadastrar() {
@@ -45,14 +45,15 @@
             erro.innerHTML += 'Numérico maior ou igual a zeros e menor que 10';
             erros++;
         }
-      
+
         for (let index = 0; index < alunos.length; index++) {
-            if (nome == alunos[index]) {
+            if (nome == alunos[index].nome) {
                 erro.innerHTML = 'Não é possivel ter duas pessoas com o mesmo nome!';
                 erros++;
                 break;
             }
         }
+
         if (erros == 0) {
             alunos.push({
                 nome: nome,
@@ -65,6 +66,7 @@
         }
         console.log(alunos);
     }
+
     function listar() {
         msgListar.innerHTML = '';
         erro.innerHTML = '';
@@ -75,7 +77,7 @@
             erros++
         }
         if (erros == 0) {
-            var pergunta = prompt('1 - Do ultimo ao primeiro <br> 2 - Do primeiro ao ultimo');
+            var pergunta = prompt('1 - Do ultimo ao primeiro \n 2 - Do primeiro ao ultimo');
             if (pergunta == 1) {
                 msgListar.innerHTML = '';
                 for (let index = alunos.length - 1; index >= 0; index--) {
@@ -92,48 +94,36 @@
             }
         }
     }
+
     function aluno() {
         msgAluno.innerHTML = '';
         erro.innerHTML = '';
-        var erros = 0
 
-        if (alunos.length < 0){
-        var nome = alunos.nome;
-        var nota1 = alunos.nota1;
-        var nota2 = alunos.nota2;
-        var nota3 = alunos.nota3;
-
-        var erros = 0
-
-        if (alunos.length < 0) {
+        if (alunos.length == 0) {
             erro.innerHTML = 'Nenhuma nota cadastrada!';
-            erros++
+            return;
         }
 
-        if (erros == 0) {
-            var nomeAluno = prompt('Digite o nome do aluno: ');
-            for (let index = 0; index < alunos.length; index++) {
-                if (alunos.length == 0) {
-                    erro.innerHTML = 'Não existe alunos cadastrados';
-                } else {
-                    if (nomeAluno == alunos[index].nome) {
-                        let media = (alunos[index].nota1 + alunos[index].nota2 + alunos[index].nota3) / 3;
-                        msgAluno.innerHTML = `Aluno: ${alunos[index].nome} - N1: ${alunos[index].nota1} - N2: ${alunos[index].nota2} - N3: ${alunos[index].nota3} - Média: ${media.toFixed(2)} - Nota Aluno`
-                    }
-                }
+        var nomeAluno = prompt('Digite o nome do aluno: ');
 
+        for (let index = 0; index < alunos.length; index++) {
+            if (nomeAluno == alunos[index].nome) {
+                let media = (alunos[index].nota1 + alunos[index].nota2 + alunos[index].nota3) / 3;
+                msgAluno.innerHTML =
+                    `Aluno: ${alunos[index].nome} - N1: ${alunos[index].nota1} - N2: ${alunos[index].nota2} - N3: ${alunos[index].nota3} - Média: ${media.toFixed(2)} - Nota Aluno`;
+                return;
             }
         }
+
+        erro.innerHTML = 'Aluno não encontrado!';
     }
 
     function media() {
         var prompt_media = prompt("Caso queira consultar a maior média digite: 'maior', e caso queira consultar a menor média digite: 'menor'.");
-        
-        console.log(prompt_media);
 
-        for (prompt_media; prompt_media != "maior" && prompt_media != "menor"; prompt_media) {
+        while (prompt_media != "maior" && prompt_media != "menor") {
             prompt_media = prompt("Caso queira consultar a maior média digite: 'maior', e caso queira consultar a menor média digite: 'menor'.");
-        } 
+        }
 
         var media_temporaria = 0;
         var nome_maior = "";
@@ -148,13 +138,12 @@
         var nota3_menor = 0;
         var media_menor = 0;
 
-        console.log(prompt_media)
         if (prompt_media == "maior") {
             for (let contador = 0; contador < alunos.length; contador++) {
                 media_temporaria = (alunos[contador].nota1 + alunos[contador].nota2 + alunos[contador].nota3) / 3;
 
                 if (contador == 0) {
-                    media_maior == media_temporaria;
+                    media_maior = media_temporaria; // CORRIGIDO
                 }
 
                 if (media_temporaria > media_maior) {
@@ -165,7 +154,6 @@
                     nota3_maior = alunos[contador].nota3;
                 }
             }
-            console.log("oi")
 
             msgMedia.innerHTML = `Registro : Nome:${nome_maior}, Nota 1: ${nota1_maior}, Nota 2: ${nota2_maior}, Nota 3: ${nota3_maior}<br> média: ${media_maior}`;
         }
@@ -186,11 +174,10 @@
                     nota3_menor = alunos[contador].nota3;
                 }
             }
-            console.log(nota1_menor)
-
             msgMedia.innerHTML = `Registro : Nome:${nome_menor}, Nota 1: ${nota1_menor}, Nota 2: ${nota2_menor}, Nota 3: ${nota3_menor}<br> média: ${media_menor}`;
         }
     }
+
 </script>
 
 </html>
