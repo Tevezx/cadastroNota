@@ -24,6 +24,7 @@
     <div id="erro"></div>
 </body>
 <script>
+  
     var alunos = [];
 
     function cadastrar() {
@@ -44,6 +45,7 @@
             erro.innerHTML += 'Numérico maior ou igual a zeros e menor que 10';
             erros++;
         }
+      
         for (let index = 0; index < alunos.length; index++) {
             if (nome == alunos[index]) {
                 erro.innerHTML = 'Não é possivel ter duas pessoas com o mesmo nome!';
@@ -61,6 +63,7 @@
 
             msgCadastro.innerHTML = `Aluno: ${nome} cadastrado com sucesso!`;
         }
+        console.log(alunos);
     }
     function listar() {
         msgListar.innerHTML = '';
@@ -95,6 +98,14 @@
         var erros = 0
 
         if (alunos.length < 0){
+        var nome = alunos.nome;
+        var nota1 = alunos.nota1;
+        var nota2 = alunos.nota2;
+        var nota3 = alunos.nota3;
+
+        var erros = 0
+
+        if (alunos.length < 0) {
             erro.innerHTML = 'Nenhuma nota cadastrada!';
             erros++
         }
